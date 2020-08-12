@@ -1,12 +1,14 @@
-var restify = require("restify")
+import * as restify from "restify"
+import ItemController from "./controllers/ItemsController"
 
-var server = restify.createServer()
+const server = restify.createServer()
+const itemController = new ItemController()
+
+const db = require("./db/connection")
 
 const port = process.env.PORT || 8080
 
-server.get("/:name", (req, res, next) => {
-    res.send("Hello " + req.params.name)
-})
+server.get("/items", itemController.list)
 
 server.listen(port, () => {
     console.log(`${server.name} listening at ${server.url}`)
