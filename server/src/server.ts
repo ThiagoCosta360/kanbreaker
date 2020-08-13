@@ -6,7 +6,7 @@ const itemController = new ItemController()
 
 const db = require("./db/connection")
 
-const port = process.env.PORT || 8080
+const port = 9000
 
 const check = (
     req: restify.Request,
