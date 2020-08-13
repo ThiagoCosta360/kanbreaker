@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+    server:
+        container_name: kanbreaker-server
+        build:
+            context: ../
+            dockerfile: ./docker/docker-server/Dockerfile
+        volumes:
+            - .:/home/node/app/server
+            - ./node_modules:/home/node/app/server/node_modules
+        depends_on:
+            - db
+        links:
+            - db
+        ports:
+            - "9000:9000"
+
+    db:
+        container_name: MONGODB_MEDIUM
+        build: "./docker-mongo"
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data/db:/data/db
