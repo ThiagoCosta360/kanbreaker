@@ -1,6 +1,18 @@
 version: "3"
 
 services:
+    web:
+        container_name: kanbreaker-web
+        build:
+            context: ./web
+            dockerfile: ./Dockerfile
+        env_file: ./.env
+        volumes:
+            - ./web:/home/node/app/web
+            - ./web/node_modules:/home/node/app/web/node_modules
+        ports:
+            - "3000:3000"
+        stdin_open: true
     server:
         container_name: kanbreaker-server
         build:
@@ -20,7 +32,7 @@ services:
         links:
             - mongodb
         ports:
-            - "9000:9000"
+            - "4000:4000"
     mongodb:
         container_name: kanbreaker-mongodb
         image: mongo:latest

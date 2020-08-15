@@ -2,12 +2,12 @@ FROM node:latest
 
 WORKDIR /home/node/app
 
-COPY package.json .
+COPY package*.json ./
 
 RUN npm install --quiet
 
 COPY . .
 
-EXPOSE 9000
+EXPOSE 4000
 
 CMD npm run start
