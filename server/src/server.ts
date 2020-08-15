@@ -13,7 +13,7 @@ const check = (
     res: restify.Response,
     next: restify.Next
 ) => {
-    res.send("I'm working")
+    res.send("I'm working now")
 }
 
 server.use(restify.plugins.bodyParser())

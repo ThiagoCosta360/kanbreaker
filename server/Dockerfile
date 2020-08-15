@@ -2,11 +2,11 @@ FROM node:latest
 
 WORKDIR /home/node/app
 
-COPY ./server/package.json .
+COPY package.json .
 
 RUN npm install --quiet
 
-COPY ./server .
+COPY . .
 
 EXPOSE 9000
 

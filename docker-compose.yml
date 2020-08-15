@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+    server:
+        container_name: kanbreaker-server
+        build:
+            context: ./server
+            dockerfile: ./Dockerfile
+        env_file: ./.env
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+        volumes:
+            - ./server:/home/node/app/server
+            - ./server/node_modules:/home/node/app/server/node_modules
+        depends_on:
+            - mongodb
+        links:
+            - mongodb
+        ports:
+            - "9000:9000"
+    mongodb:
+        container_name: kanbreaker-mongodb
+        image: mongo:latest
+        env_file: .env
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+            - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+        volumes:
+            - ./data/mongodb:/data/db
