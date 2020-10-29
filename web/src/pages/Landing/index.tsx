@@ -2,6 +2,9 @@ import React, { Component, MouseEvent, ChangeEvent } from "react"
 
 import Input from "../../components/Input"
 
+import itemsController from "../../controllers/items-controller"
+import api from "../../services/api"
+
 import "./styles.css"
 
 type MyProps = {}
@@ -13,9 +16,15 @@ type MyState = {
 class LandingPage extends Component<MyProps, MyState> {
     constructor(props: any) {
         super(props)
-        this.state = { items: [], text: "" }
+        this.state = this.getState()
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    async getState() {
+        const response = await api.get("/items")
+
+        return { items: response.data, text: "" }
     }
 
     render() {
@@ -52,15 +61,17 @@ class LandingPage extends Component<MyProps, MyState> {
         this.setState({ text: e.target.value })
     }
 
-    handleSubmit(e: MouseEvent<HTMLButtonElement>) {
+    async handleSubmit(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
-        if (this.state.text.length === 0) {
-            return
-        }
-        this.setState((state) => ({
-            items: state.items.concat(this.state.text),
-            text: "",
-        }))
+        // if (this.state.text.length === 0) {
+        //     return
+        // }
+        // this.setState((state) => ({
+        //     items: state.items.concat(this.state.text),
+        //     text: "",
+        // }))
+        const response = await api.get("/items")
+        console.log(response)
     }
 }
 

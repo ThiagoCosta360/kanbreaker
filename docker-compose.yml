@@ -12,7 +12,9 @@ services:
             - ./web/node_modules:/home/node/app/web/node_modules
         ports:
             - "3000:3000"
+        restart: always
         stdin_open: true
+
     server:
         container_name: kanbreaker-server
         build:
